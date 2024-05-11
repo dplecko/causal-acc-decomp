@@ -1,0 +1,10 @@
+.DS_Store
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+^data/
+*.Rproj
+.idea/
+figures/*
+!figures/.gitkeep
