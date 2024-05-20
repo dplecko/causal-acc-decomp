@@ -11,10 +11,12 @@ c(data, sfm) %<-% preproc(dataset)
 acc_boot <- accuracy_decomposition_boot(data, sfm$X, sfm$Y, sfm$Z, sfm$W,
                                         loss = loss, x0 = 0, x1 = 1)
 
-for (type in c("df_da", "loss_bar", "tv_bar")) {
+for (type in c("df_da", "loss_bars", "pareto", "tv_bar")) {
   
   plt <- vis_route(acc_boot, type, dataset)
   ggsave(filename = file.path(root, "figures", paste0(dataset, "_", type, ".png")),
-         plot = plt, width = 6, height = 4)
+         plot = plt, width = 7 + 3 * (type=="pareto"), 
+         height = 4 + 2 * (type=="pareto"), bg="white")
 }
 vis_route(acc_boot, "wtp")
+

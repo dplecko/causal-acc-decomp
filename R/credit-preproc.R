@@ -4,6 +4,7 @@ preproc_credit <- function() {
   df <- read.csv("data/uci-credit.csv")
   
   names(df)[names(df) == "default.payment.next.month"] <- "DEFAULT"
+  df$ID <- NULL
   
   sfm <- list(
     X = "SEX",
@@ -26,6 +27,6 @@ preproc <- function(dataset) {
   switch (dataset,
     census = preproc_census(gov_census, SFM_proj("census")),
     compas = preproc_compas(),
-    credit = preproc_compas()
+    credit = preproc_credit()
   )
 }

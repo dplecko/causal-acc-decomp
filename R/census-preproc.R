@@ -96,9 +96,11 @@ preproc_census <- function(data, sfm, drop_industry = TRUE) {
   # remove the occupation column
   data$occupation <- NULL
   sfm[["W"]] <- setdiff(sfm[["W"]], "occupation") 
-  
+
   # remove the economic region abroad
-  data[data$economic_region != "Abroad",]
+  data <- data[data$economic_region == "Far West",]
+  data$economic_region <- NULL
+  sfm[["Z"]] <- setdiff(sfm[["Z"]], "economic_region") 
   
   # one-hot encode the rest
   for (colname in names(data)) {
@@ -129,6 +131,11 @@ preproc_census <- function(data, sfm, drop_industry = TRUE) {
   
   # make the outcome binary
   data$salary <- log(data$salary)
+  
+  # pick 20k samples
+  set.seed(2024)
+  idx <- sample.int(n = nrow(data), size = 20000)
+  data <- data[idx, ]
   
   list(data, sfm)
 }
